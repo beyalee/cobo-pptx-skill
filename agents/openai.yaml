@@ -1,0 +1,4 @@
+interface:
+  display_name: "Cobo Customer Solution Deck"
+  short_description: "Create Cobo customer-facing MPC / Payment solution decks in the 2026-09 house style"
+  default_prompt: "Use $cobo-customer-solution-deck to draft a customer-facing Cobo deck: list page-level changes for the user to confirm first, then build, render-QA every page, and save pptx/pdf + README 口徑 (+ AGENT_LOG entry if the workspace has one)."
