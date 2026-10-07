@@ -34,9 +34,10 @@ bash ~/.claude/skills/cobo-customer-solution-deck/scripts/check-update.sh
 ## 开始前必做
 
 1. **母版从哪来**（按顺序找，找到就停）：
-   1. 官方模板 skill 的 `assets/reference.pptx`；
-   2. 用户给的、最近定稿的 Cobo 对客 pptx（例如台湾数娱版）；
-   3. 都没有：停下来，请用户提供一份 Cobo 对客 pptx 作为母版。**不要用 python-pptx 的空白模板从零画**——做出来的页脚、字体、版式都会和 Cobo 母版对不上。
+   1. **Cobo 官方 Google Slides 模板**：https://docs.google.com/presentation/d/10y4860Wh4BMTMuFbnPT5-uiJvuUZGjOjnHZqTksNdNQ/edit
+      需要 Cobo Google 账号才能打开，Claude 下载不了。请用户在浏览器打开后「文件 → 下载 → Microsoft PowerPoint (.pptx)」，把文件给你；同一次会话里下载过就直接复用。
+   2. 用户给的、最近定稿的 Cobo 对客 pptx（例如台湾数娱版），或官方模板 skill 的 `assets/reference.pptx`；
+   3. 都没有：停下来，请用户按第 1 条下载模板。**不要用 python-pptx 的空白模板从零画**——做出来的页脚、字体、版式都会和 Cobo 母版对不上。
 2. 工作目录里有 `AGENT_LOG.md` 的话（Lucas 的 Cobo Sales 工作区），读最近几条，并检查其他 agent 有没有同一产品的新材料，例如法币、POBO、定价。事实以最新、最权威的材料为准；发现冲突要改 deck，并且告诉用户。
 3. 读目标市场的口径文件，例如台湾就读 `README_台灣數娛版_口徑與決策.md`；找不到时用 `references/` 里的摘要。没有口径文件的市场，第一份 deck 做完要补一份。
 4. **先讨论，后动手。**按页列出修改清单交给用户确认，格式是"页码 → 处理方式 → 理由"。确认后才改 pptx。凡是要删页、合并页、改事实的，必须先确认。
@@ -98,7 +99,7 @@ bash ~/.claude/skills/cobo-customer-solution-deck/scripts/check-update.sh
 
 ## 视觉系统
 
-- **母版**：用官方模板 skill 的 `assets/reference.pptx`。画布 10×5.625 英寸，白底内容页，底部是带 logo 的蓝色页脚条，章节页和封面是蓝底。页脚标语"Powering Your Crypto Ambitions"保留不改。
+- **母版**：用 Cobo 官方 Google Slides 模板导出的 pptx（见"开始前必做"第 1 条）。画布 10×5.625 英寸，白底内容页，底部是带 logo 的蓝色页脚条，章节页和封面是蓝底。页脚标语"Powering Your Crypto Ambitions"保留不改。
 - **优先复用源页**：选页时先看官方模板 skill 的 `template-layout-catalog.md`。源 deck 里有对应版式的，就复用源页，只改文字；源页包括架构图、对比表、MPC 签名、恢复工具、签核流程、产品截图页。
 - **组件只用于源 deck 里没有的新页型**：定位＋卖点页、Q&A 页、痛点流程、风险三档、分工冰山、下一步页。组件保持扁平，不加阴影、渐变或装饰条；有源页能用就不新画。这样官方模板 skill 里"不要引入卡片式设计系统"那条规则依然成立。
 - **颜色**：
