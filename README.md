@@ -3,7 +3,7 @@
 > Cobo 对客方案 PPT 技能，适用于 Claude Code。
 > 一行命令安装，说出客户和产品，Claude 按 Cobo 定稿的叙事结构、文案规则和视觉风格，生成可直接编辑的 `.pptx` 方案 deck。
 
-覆盖 **MPC**、**Payment** 或两者组合，支持**简体中文、繁体中文、英文**。风格基准是 2026-09 定稿的台湾数娱版，由 Lucas 整理。
+支持**简体中文、繁体中文、英文**，风格基准是 2026-09 定稿的台湾数娱版，由 Lucas 整理。
 
 ---
 
@@ -35,19 +35,27 @@ bash ~/.claude/skills/cobo-customer-solution-deck/scripts/check-update.sh
 
 ## 使用方式
 
-**1. 直接描述客户和产品**，Claude 从零搭一份：
+**1. 描述客户和产品，或直接丢资料给它**，Claude 从零搭一份：
 
 ```
 帮我给一家越南支付公司做一份 Cobo Payment 方案 PPT，简体中文
 ```
 
-**2. 改写现有 deck：**
+```
+根据这份客户需求和会议纪要，做一份 MPC 方案 deck @客户需求.docx
+```
+
+**2. 语言切换** —— 中英互换、简繁互换。不是逐字翻译，用词按目标语言的口径重写：
 
 ```
 把这份台湾数娱版改成英文，客户是新加坡的交易所 @deck.pptx
 ```
 
-**3. 本地化到新市场：**
+```
+把这份简体版转成繁体 @deck.pptx
+```
+
+**3. 本地化** —— 换成当地客户听得懂的说法。同一个产品，台湾讲「網銀平台」，大陆讲「结算平台」：
 
 ```
 按大陆用语改一版 MPC 方案，受众是游戏平台老板
@@ -57,7 +65,7 @@ Claude 会：
 1. 找母版 —— **手边最好准备一份最近定稿的 Cobo 客户 deck**，没有母版它会先问你要
 2. 按页列出「页码 → 处理方式 → 理由」让你确认 —— **这一步值得认真看**，删页、合并页、改事实都在这里定
 3. 改 pptx，逐页渲染检查文字溢出、重叠
-4. 交付 `.pptx` + `.pdf`
+4. 交付 `.pptx`
 
 ---
 
@@ -106,7 +114,7 @@ cobo-customer-solution-deck/
 
 - [Claude Code](https://claude.ai/code)（需登录 Anthropic 账户）
 - python-pptx：`pip install python-pptx`
-- 逐页渲染检查、导出 PDF 需要 LibreOffice：`brew install --cask libreoffice`
+- 逐页渲染检查需要 LibreOffice：`brew install --cask libreoffice`
 
 ---
 
