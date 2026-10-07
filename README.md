@@ -13,10 +13,6 @@
 git clone https://github.com/beyalee/cobo-ppt-pptx-skill ~/.claude/skills/cobo-customer-solution-deck
 ```
 
-装完 Claude Code 会自动识别，不用重启。**本地目录名必须是 `cobo-customer-solution-deck`**，因为 skill 名由目录名决定。
-
-Codex 用户把路径换成 `~/.codex/skills/cobo-customer-solution-deck`。
-
 ### 依赖
 
 ```bash
