@@ -154,6 +154,13 @@ from deck_components import *
    - 原始素材放进 `sources/`
    - 有 `AGENT_LOG.md` 的话，在最上方加一条记录
    - 把不再使用的旧版本告诉用户，由用户决定是否归档
+7. **问要不要开 Google 幻灯片版**：交付完主动问一次，二选一，别追问第二次——
+
+   > 需要帮你把这份 deck 传成 Google 幻灯片吗？会在你 Cobo 账号下生成一个可编辑的链接，方便发给同事一起改。
+   > - yes 做
+   > - no 不做
+
+   用户选 yes 就按 `references/google-slides-upload.md` 做：那里有去掉内嵌字体压到 10 MB 以下的办法、唯一跑得通的上传路径（系统文件选择器、本地服务 fetch、合成 drop 事件都不通），以及用 `/export/pdf` 逐页验收的做法。**分享权限永远让用户自己设**，Claude 只给链接。
 
 ## 市场特例
 
