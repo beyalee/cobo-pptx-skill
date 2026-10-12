@@ -1,6 +1,6 @@
 # Cobo 客户方案 PPT skill
 
-由 Lucas 整理，风格基准是 2026-09 定稿的台湾数娱版。
+由 Lucas 整理。
 
 跟 Claude 说「帮我给 XX 客户做一份 MPC / Payment 方案 PPT」，它会套用 Cobo 官方模板，按定稿的结构和口径直接做出 `.pptx`。支持简体、繁体、英文。
 
