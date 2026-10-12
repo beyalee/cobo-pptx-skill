@@ -1,4 +1,4 @@
-# Cobo PPT skill
+# cobo PPT skill
 
 由 Lucas 整理。
 
