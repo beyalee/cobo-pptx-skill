@@ -139,8 +139,9 @@ def steps(s, items, y=1.5, h=2.55):
             a_ = s.shapes.add_shape(MSO_SHAPE.CHEVRON, Inches(x + w + 0.01), Inches(y + 0.28), Inches(0.13), Inches(0.26))
             a_.fill.solid(); a_.fill.fore_color.rgb = BLUE; a_.line.fill.background()
 
-def table(s, rows, colw, x=X0, y=1.05, rowh=0.34, size=10.5, center_from=1):
-    """对比表：首行灰底白字、首列浅灰粗体、细灰框线。✓/△/✗ 用文字，表下加图例。"""
+def table(s, rows, colw, x=X0, y=1.05, rowh=0.34, size=10.5, center_from=1, hl=1):
+    """对比表：首行灰底白字、首列浅灰粗体、细灰框线。✓/△/✗ 用文字，表下加图例。
+    hl：多列矩阵（4 列以上）里要加粗变蓝的列，默认第 1 列（Cobo 列）；不是 Cobo 对比表时传 None。"""
     for o in [sh for sh in s.shapes if sh.has_table]: o._element.getparent().remove(o._element)
     nr, nc = len(rows), len(rows[0])
     gf = s.shapes.add_table(nr, nc, Inches(x), Inches(y), Inches(sum(colw)), Inches(rowh * nr)); tbl = gf.table
@@ -160,7 +161,7 @@ def table(s, rows, colw, x=X0, y=1.05, rowh=0.34, size=10.5, center_from=1):
             fill = HEAD if i == 0 else FIRST if j == 0 else WHITE
             c.fill.solid(); c.fill.fore_color.rgb = fill
             f.bold = i == 0 or j == 0; f.color.rgb = WHITE if i == 0 else DARK
-            if i > 0 and j == 1 and nc > 3: f.color.rgb = BLUE; f.bold = True   # 多列矩阵里 Cobo 列加粗蓝
+            if i > 0 and hl is not None and j == hl and nc > 3: f.color.rgb = BLUE; f.bold = True   # 多列矩阵里 Cobo 列加粗蓝
             tcPr = c._tc.get_or_add_tcPr()
             for tag in ('a:lnL', 'a:lnR', 'a:lnT', 'a:lnB'):
                 ln = tcPr.makeelement(qn(tag), {'w': '9525'}); sf = ln.makeelement(qn('a:solidFill'), {})

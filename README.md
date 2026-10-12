@@ -10,7 +10,7 @@
 ## 安装
 
 ```bash
-git clone https://github.com/beyalee/cobo-ppt-pptx-skill ~/.claude/skills/cobo-customer-solution-deck
+git clone https://github.com/beyalee/cobo-pptx-skill ~/.claude/skills/cobo-customer-solution-deck
 ```
 
 安装后 Claude Code 会自动识别，无需重启。
@@ -62,9 +62,9 @@ bash ~/.claude/skills/cobo-customer-solution-deck/scripts/check-update.sh
 ```
 
 Claude 会：
-1. 找母版 —— **手边最好准备一份最近定稿的 Cobo 客户 deck**，没有母版它会先问你要
+1. 用 skill 自带的 Cobo 官方模板（台湾数娱版）作母版，不用你另外准备
 2. 按页列出「页码 → 处理方式 → 理由」让你确认 —— **这一步值得认真看**，删页、合并页、改事实都在这里定
-3. 改 pptx，逐页渲染检查文字溢出、重叠
+3. 改 pptx，用 Keynote 逐页渲染，检查文字溢出、重叠
 4. 交付 `.pptx`
 
 ---
@@ -100,10 +100,14 @@ Claude 会：
 cobo-customer-solution-deck/
 ├── SKILL.md                  # 主规则：叙事结构、文案规则、产品口径、视觉系统、制作流程（Claude 读取）
 ├── VERSION                   # 版本号 + 一句话说明
+├── assets/
+│   └── reference.pptx        # Cobo 官方模板（台湾数娱版），做 deck 的母版
 ├── references/
 │   └── market_tw.md          # 台湾市场用词表与说法
 ├── scripts/
 │   ├── deck_components.py    # python-pptx 组件：卖点卡、Q&A、风险三档、痛点流程、对比表
+│   ├── render.sh             # 用 Keynote 把 pptx 渲染成 PDF + 每页图片，做 QA
+│   ├── pdf2png.py            # PDF 逐页转图片 + 缩略图总览
 │   └── check-update.sh       # 版本检查
 └── agents/openai.yaml        # Codex 展示配置
 ```
@@ -113,8 +117,8 @@ cobo-customer-solution-deck/
 ## 依赖
 
 - [Claude Code](https://claude.ai/code)（需登录 Anthropic 账户）
-- python-pptx：`pip install python-pptx`
-- 逐页渲染检查需要 LibreOffice：`brew install --cask libreoffice`
+- Python 库：`pip install python-pptx pymupdf`
+- Keynote（macOS 自带）：用于逐页渲染检查，不用另装软件。第一次用时如果 Keynote 弹出欢迎页或授权框，点掉即可
 
 ---
 

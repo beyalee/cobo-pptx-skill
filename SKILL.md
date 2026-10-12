@@ -34,10 +34,9 @@ bash ~/.claude/skills/cobo-customer-solution-deck/scripts/check-update.sh
 ## 开始前必做
 
 1. **母版从哪来**（按顺序找，找到就停）：
-   1. **Cobo 官方 Google Slides 模板**：https://docs.google.com/presentation/d/10y4860Wh4BMTMuFbnPT5-uiJvuUZGjOjnHZqTksNdNQ/edit
-      需要 Cobo Google 账号才能打开，Claude 下载不了。请用户在浏览器打开后「文件 → 下载 → Microsoft PowerPoint (.pptx)」，把文件给你；同一次会话里下载过就直接复用。
-   2. 用户给的、最近定稿的 Cobo 对客 pptx（例如台湾数娱版），或官方模板 skill 的 `assets/reference.pptx`；
-   3. 都没有：停下来，请用户按第 1 条下载模板。**不要用 python-pptx 的空白模板从零画**——做出来的页脚、字体、版式都会和 Cobo 母版对不上。
+   1. **本 skill 自带的 `assets/reference.pptx`**（默认用它）：Cobo 官方模板「Cobo簡報_台灣數娛版」导出的 pptx，随 skill 一起安装。先复制一份再改，不要改原件。
+   2. 用户说模板有更新，或给了更新的 Cobo 对客 pptx：用用户给的。模板原件在 Google Slides（https://docs.google.com/presentation/d/10y4860Wh4BMTMuFbnPT5-uiJvuUZGjOjnHZqTksNdNQ/edit），需要 Cobo Google 账号，请用户「文件 → 下载 → Microsoft PowerPoint (.pptx)」后把文件给你。
+   3. 都不可用：停下来问用户要模板。**不要用 python-pptx 的空白模板从零画**——做出来的页脚、字体、版式都会和 Cobo 母版对不上。
 2. 工作目录里有 `AGENT_LOG.md` 的话（Lucas 的 Cobo Sales 工作区），读最近几条，并检查其他 agent 有没有同一产品的新材料，例如法币、POBO、定价。事实以最新、最权威的材料为准；发现冲突要改 deck，并且告诉用户。
 3. 读目标市场的口径文件，例如台湾就读 `README_台灣數娛版_口徑與決策.md`；找不到时用 `references/` 里的摘要。没有口径文件的市场，第一份 deck 做完要补一份。
 4. **先讨论，后动手。**按页列出修改清单交给用户确认，格式是"页码 → 处理方式 → 理由"。确认后才改 pptx。凡是要删页、合并页、改事实的，必须先确认。
@@ -99,7 +98,7 @@ bash ~/.claude/skills/cobo-customer-solution-deck/scripts/check-update.sh
 
 ## 视觉系统
 
-- **母版**：用 Cobo 官方 Google Slides 模板导出的 pptx（见"开始前必做"第 1 条）。画布 10×5.625 英寸，白底内容页，底部是带 logo 的蓝色页脚条，章节页和封面是蓝底。页脚标语"Powering Your Crypto Ambitions"保留不改。
+- **母版**：`assets/reference.pptx`（见"开始前必做"第 1 条）。画布 10×5.625 英寸，白底内容页，底部是带 logo 的蓝色页脚条，章节页和封面是蓝底。页脚标语"Powering Your Crypto Ambitions"保留不改。
 - **优先复用源页**：选页时先看官方模板 skill 的 `template-layout-catalog.md`。源 deck 里有对应版式的，就复用源页，只改文字；源页包括架构图、对比表、MPC 签名、恢复工具、签核流程、产品截图页。
 - **组件只用于源 deck 里没有的新页型**：定位＋卖点页、Q&A 页、痛点流程、风险三档、分工冰山、下一步页。组件保持扁平，不加阴影、渐变或装饰条；有源页能用就不新画。这样官方模板 skill 里"不要引入卡片式设计系统"那条规则依然成立。
 - **颜色**：
@@ -114,12 +113,18 @@ bash ~/.claude/skills/cobo-customer-solution-deck/scripts/check-update.sh
   - 卖点名 12.5–14pt 蓝色粗体；正文 10.5–12pt
   - 表格 10.5–11pt；脚注 9–9.5pt，不得小于 9pt
 - **版面**：左边距 0.56 英寸，卡片间距 0.16 英寸。一页最多 6 张卡（3×2，或 3+2，最后一行自动拉宽），每页最多一条深蓝关键信息条。
-- **组件**：都在 `scripts/deck_components.py` 里，包括卖点卡网格、关键信息条、Q&A 2×2、风险三档、横向痛点流程、对比表、脚注。冰山图和手机示意图参考基准 deck 的第 7 页和第 17 页。
+- **组件**：都在 `scripts/deck_components.py` 里，包括卖点卡网格、关键信息条、Q&A 2×2、风险三档、横向痛点流程、对比表、脚注。对比表默认把第 2 列当 Cobo 列加粗变蓝，不是 Cobo 对比表时传 `hl=None`。冰山图和手机示意图参考基准 deck 的第 7 页和第 17 页。
 - 原有截图页和架构图优先保留，只改图里的文字；需要重画时，用上面的颜色和组件。
 
 ## 制作流程（pptx）
 
-**依赖**：Claude Code 内置的 `pptx` skill（提供 `add_slide.py`、`clean.py`、`validate.py`、渲染缩略图的脚本）；`pip install python-pptx`；渲染成图或导出 pdf 需要 LibreOffice（`brew install --cask libreoffice`）。缺哪个就告诉用户装哪个，不要跳过 QA。
+**依赖**：Claude Code 内置的 `pptx` skill（提供 `add_slide.py`、`clean.py`、`validate.py`、渲染缩略图的脚本）；`pip install python-pptx pymupdf`。缺哪个就告诉用户装哪个，不要跳过 QA。
+
+**渲染检查**：macOS 优先用系统自带的 Keynote，不用装 LibreOffice（公司电脑通常装不了）：
+```bash
+bash ~/.claude/skills/cobo-customer-solution-deck/scripts/render.sh deck.pptx out/
+```
+输出 PDF、每页 PNG 和一张缩略图总览 `*-sheet.png`。第一次运行如果卡住或超时，多半是 Keynote 弹了欢迎页、缺字体提示或「允许控制 Keynote」授权框——请用户切到 Keynote 点掉再重跑。Keynote 会跳过隐藏页。没有 Keynote 的电脑才用 LibreOffice。
 
 **组件导入**：
 ```python
@@ -140,7 +145,7 @@ from deck_components import *
    - 错字
    - 禁用词（价格、T+1、未确认事实、客户真名）
 5. **QA**：
-   - 每一页都要渲染成图逐页看：文字溢出、重叠、遮挡、空白不均
+   - 每一页都要渲染成图逐页看（`scripts/render.sh`）：文字溢出、重叠、遮挡、空白不均
    - 运行 `validate.py --original <母版>`；有官方模板 skill 时再跑它的 `scripts/audit_deck_package.py`
    - 交付前做一次全篇一致性审稿：卖点用词；对比页和矩阵的结论；事实和口径；和其他 agent 材料有没有冲突
 6. **交付**：
