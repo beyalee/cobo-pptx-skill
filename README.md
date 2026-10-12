@@ -12,7 +12,7 @@
 git clone https://github.com/beyalee/cobo-pptx-skill ~/.claude/skills/cobo-customer-solution-deck
 ```
 
-装一次依赖（Claude 用 python-pptx 改 PPT，用 PyMuPDF 把每页转成图片检查排版；转换靠 Mac 自带的 Keynote，不用另装软件）：
+装一次依赖（用于检查排版）：
 
 ```bash
 pip install python-pptx pymupdf
