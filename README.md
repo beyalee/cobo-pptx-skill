@@ -1,9 +1,8 @@
-# cobo-customer-solution-deck
+# Cobo 客户方案 PPT skill
 
-> Cobo 对客方案 PPT 技能，适用于 Claude Code。
-> 一行命令安装，说出客户和产品，Claude 按 Cobo 定稿的叙事结构、文案规则和视觉风格，生成可直接编辑的 `.pptx` 方案 deck。
+跟 Claude 说「帮我给 XX 客户做一份 MPC / Payment 方案 PPT」，它会套用 Cobo 官方模板，按台湾数娱版定稿的结构和口径直接做出 `.pptx`。支持简体、繁体、英文。
 
-支持**简体中文、繁体中文、英文**，风格基准是 2026-09 定稿的台湾数娱版，由 Lucas 整理。
+风格基准是 2026-09 定稿的台湾数娱版，由 Lucas 整理。
 
 ---
 
@@ -13,7 +12,13 @@
 git clone https://github.com/beyalee/cobo-pptx-skill ~/.claude/skills/cobo-customer-solution-deck
 ```
 
-安装后 Claude Code 会自动识别，无需重启。
+装一次依赖：
+
+```bash
+pip install python-pptx pymupdf
+```
+
+用到的检查工具是 Mac 自带的 Keynote，不用另装软件。有新版本时 Claude 会提醒你更新。
 
 ### 更新
 
@@ -111,14 +116,6 @@ cobo-customer-solution-deck/
 │   └── check-update.sh       # 版本检查
 └── agents/openai.yaml        # Codex 展示配置
 ```
-
----
-
-## 依赖
-
-- [Claude Code](https://claude.ai/code)（需登录 Anthropic 账户）
-- Python 库：`pip install python-pptx pymupdf`
-- Keynote（macOS 自带）：用于逐页渲染检查，不用另装软件。第一次用时如果 Keynote 弹出欢迎页或授权框，点掉即可
 
 ---
 
