@@ -1,1 +1,1 @@
-2026.10.12 · 自带 Cobo 官方模板；渲染检查改用 Keynote，不用装 LibreOffice；对比表可关闭 Cobo 列高亮
+2026.10.12b · 交付后询问是否生成 Google 幻灯片版；新增 references/google-slides-upload.md（注入暂存 input + file_upload 的上传方法，含三条死路与 /export/pdf 验收）
