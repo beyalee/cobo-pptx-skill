@@ -1,4 +1,4 @@
-# Cobo 客户方案 PPT skill
+# Cobo PPT skill
 
 由 Lucas 整理。
 
